@@ -1,10 +1,12 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+
 
 const Header = () => {
 
-    const isUserLogin = localStorage.getItem('isUserLogin');
+  const navigate = useNavigate();
 
-    console.log("isUserLogin  =>>>>   "+isUserLogin);
+    const isUserLogin = localStorage.getItem('isUserLogin');
 
     return (
         <div style={styles.header}>
@@ -15,8 +17,15 @@ const Header = () => {
           <div style={styles.rightSide}>
             <h4 style={({marginRight: '20px'})}>Home</h4>
             <h4 style={({marginRight: '20px'})}>About</h4>
-          {isUserLogin === 'true' ? <div></div> : <button onClick={  ()=>{
-                window.location.href='/login'
+          {isUserLogin === 'true' 
+          ? <button onClick={  ()=>{
+             navigate('/login');
+            window.location.reload()
+            localStorage.setItem('isUserLogin', false);
+           
+            } } style={({marginRight: '50px'})}>Logout</button> 
+          : <button onClick={  ()=>{
+            navigate('/login');
             } } style={({marginRight: '50px'})}>Login</button>}
           </div>
         </div>

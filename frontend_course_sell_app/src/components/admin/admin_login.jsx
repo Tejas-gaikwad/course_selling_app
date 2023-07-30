@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function AdminLogin() {
 
@@ -22,6 +23,8 @@ function AdminLogin() {
 
 function AdminLoginTextfield(props) {
 
+    const navigate = useNavigate();
+
     function doLogin() {
         fetch("http://localhost:3000/admin/login", {
             method:"POST",
@@ -38,7 +41,8 @@ function AdminLoginTextfield(props) {
                 resp.json().then((data) => {
                     const token = data.token;
                     localStorage.setItem('adminToken', token);
-                    window.location.href='/admin/courses'
+                    // window.location.href='/admin/courses'
+                    navigate('/admin/courses');
                 })
             }else{
                 alert("Login Failed");
